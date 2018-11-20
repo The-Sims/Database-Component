@@ -1,6 +1,8 @@
 package models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -15,7 +17,8 @@ public class Incident {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToMany(mappedBy = "incident")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "incident", cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)    // don't remove this line
     private List<IncidentDescription> descriptions;
 
     @CreationTimestamp
@@ -38,7 +41,8 @@ public class Incident {
 
     private boolean live;
 
-    @OneToMany(mappedBy = "incident")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "incident", cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)    // don't remove this line
     private List<ReinforceInfo> reinforceInfo;
 
     public Incident(ArrayList<IncidentDescription> descriptions, Date createDate, Date modifyDate, Origin origin, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {

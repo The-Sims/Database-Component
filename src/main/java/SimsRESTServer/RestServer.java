@@ -1,11 +1,10 @@
 package SimsRESTServer;
 
+import SimsDal.repository.IncidentRepository;
 import SimsDal.repository.PhasedplanRepository;
 import SimsDal.repository.UserRepository;
-import SimsRESTServer.handlers.IPhasedplanHandler;
-import SimsRESTServer.handlers.IUserHandler;
-import SimsRESTServer.handlers.PhasedplanHandler;
-import SimsRESTServer.handlers.UserHandler;
+import SimsRESTServer.handlers.*;
+import SimsRESTServer.restservices.IncidentService;
 import SimsRESTServer.restservices.PhasedplanService;
 import SimsRESTServer.restservices.UserService;
 import logging.Logger;
@@ -20,7 +19,7 @@ import javax.servlet.DispatcherType;
 import java.util.EnumSet;
 
 public class RestServer {
-    private static final int PORT = 8095;
+    private static final int PORT = 8094;
 
     public static void main(String[] args) {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -45,6 +44,9 @@ public class RestServer {
 
         IUserHandler userHandler = new UserHandler(new UserRepository());
         UserService.setHandler(userHandler);
+
+        IIncidentHandler recipeHandler = new IncidentHandler(new IncidentRepository());
+        IncidentService.setHandler(recipeHandler);
 
         // Tells the Jersey Servlet which REST service/class to load
         jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "SimsRESTServer.restservices");

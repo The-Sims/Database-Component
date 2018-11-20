@@ -40,12 +40,16 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property> <!--create or update-->
+        <property name="hbm2ddl.auto">update</property> <!--create or update-->
 
         <!-- The mapping information of entities -->
         <mapping class="models.User"/>
         <mapping class="models.Phasedplan"/>
         <mapping class="models.Task"/>
+        <mapping class="models.Category"/>
+        <mapping class="models.Incident"/>
+        <mapping class="models.IncidentDescription"/>
+        <mapping class="models.ReinforceInfo"/>
 
     </session-factory>
 </hibernate-configuration>

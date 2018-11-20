@@ -1,10 +1,13 @@
 package SimsRESTServer.handlers;
 
+import SimsDal.repository.IncidentRepository;
+import SimsRESTServer.response.ErrorJson;
+import SimsRESTServer.response.IncidentJson;
+import SimsRESTServer.response.Reply;
+import SimsRESTServer.response.Status;
 import com.google.gson.Gson;
-import dbal.repository.IncidentRepository;
 import logging.Logger;
 import models.Incident;
-import restserver.response.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +24,10 @@ public class IncidentHandler implements IIncidentHandler{
     @Override
     public Reply getIncidents(){
         try {
-            List<Incident> recipes = repo.findAll();
+            List<Incident> incidents = repo.findAll();
             List<IncidentJson> incidentResponse = new ArrayList<IncidentJson>();
-            for (Incident incident : recipes) {
-                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinforceInfoStrings(), incident.isLive()));
+            for (Incident incident : incidents) {
+                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinforceInfoStrings(), incident.isLive(), incident.getCreateDate().toString(), incident.getModifyDate().toString()));
             }
             String json = gson.toJson(incidentResponse);
             return new Reply(Status.OK, json);
@@ -42,8 +45,18 @@ public class IncidentHandler implements IIncidentHandler{
             String json = gson.toJson(incident);
             return new Reply(Status.OK, json);
         }
-        ErrorJson errorJson = new ErrorJson("Recipe doesn't exist!");
+        ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
         return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
+    }
+
+    @Override
+    public Reply saveIncident(Incident incident) {
+        Incident saved = repo.save(incident);
+        if (saved.getId() == incident.getId()) {
+            return new Reply(Status.OK, gson.toJson(saved));
+        }
+        ErrorJson errorJson = new ErrorJson("Something went wrong");
+        return new Reply(Status.ERROR, gson.toJson(errorJson));
     }
 
 }

@@ -1,5 +1,8 @@
 package models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +13,7 @@ public class IncidentDescription {
     private int id;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="incident_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Incident incident;
 
     public IncidentDescription(int id, String description) {

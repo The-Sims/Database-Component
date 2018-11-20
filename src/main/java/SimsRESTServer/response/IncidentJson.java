@@ -8,13 +8,17 @@ public class IncidentJson {
     String place;
     ArrayList<String> reinforcementInfo;
     boolean live;
+    String create_date;
+    String modify_date;
 
-    public IncidentJson(int id, String description, String place, ArrayList<String> reinforcementInfo, boolean live) {
+    public IncidentJson(int id, String category, String place, ArrayList<String> reinforcementInfo, boolean live, String create_date, String modify_date) {
         this.id = id;
-        this.category = description;
+        this.category = category;
         this.place = place;
         this.reinforcementInfo = reinforcementInfo;
         this.live = live;
+        this.create_date = create_date;
+        this.modify_date = modify_date;
     }
 
     public int getId() {
@@ -37,5 +41,11 @@ public class IncidentJson {
         return live;
     }
 
+    public String getCreate_date() {
+        return create_date;
+    }
 
+    public String getModify_date() {
+        return modify_date;
+    }
 }
