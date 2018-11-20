@@ -7,15 +7,17 @@ public class IncidentJson {
     String category;
     String place;
     ArrayList<String> reinforcementInfo;
+    ArrayList<String> incidentDescription;
     boolean live;
     String create_date;
     String modify_date;
 
-    public IncidentJson(int id, String category, String place, ArrayList<String> reinforcementInfo, boolean live, String create_date, String modify_date) {
+    public IncidentJson(int id, String category, String place, ArrayList<String> reinforcementInfo, ArrayList<String> incidentDescription, boolean live, String create_date, String modify_date) {
         this.id = id;
         this.category = category;
         this.place = place;
         this.reinforcementInfo = reinforcementInfo;
+        this.incidentDescription = incidentDescription;
         this.live = live;
         this.create_date = create_date;
         this.modify_date = modify_date;

@@ -27,7 +27,7 @@ public class IncidentHandler implements IIncidentHandler{
             List<Incident> incidents = repo.findAll();
             List<IncidentJson> incidentResponse = new ArrayList<IncidentJson>();
             for (Incident incident : incidents) {
-                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinforceInfoStrings(), incident.isLive(), incident.getCreateDate().toString(), incident.getModifyDate().toString()));
+                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinforceInfoStrings(),incident.getDescriptionStrings(), incident.isLive(), incident.getCreateDate().toString(), incident.getModifyDate().toString()));
             }
             String json = gson.toJson(incidentResponse);
             return new Reply(Status.OK, json);
@@ -42,7 +42,8 @@ public class IncidentHandler implements IIncidentHandler{
     public Reply getIncident(int id){
         Incident incident = repo.findOne(id);
         if (incident != null) {
-            String json = gson.toJson(incident);
+            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategoryString(),incident.getPlace(),incident.getReinforceInfoStrings(),incident.getDescriptionStrings(), incident.isLive(),incident.getCreateDate().toString(), incident.getModifyDate().toString());
+            String json = gson.toJson(incidentJson);
             return new Reply(Status.OK, json);
         }
         ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");

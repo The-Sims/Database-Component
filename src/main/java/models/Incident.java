@@ -67,9 +67,12 @@ public class Incident {
         return descriptions;
     }
 
-    public String getFirstDescription() {
-        IncidentDescription incidentDescription = descriptions.get(0);
-        return incidentDescription.getDescription();
+    public ArrayList<String> getDescriptionStrings() {
+        ArrayList<String> descriptionStrings = new ArrayList<>();
+        for(IncidentDescription d: descriptions){
+            descriptionStrings .add(d.getDescription());
+        }
+        return descriptionStrings ;
     }
 
     public Date getCreateDate() {
