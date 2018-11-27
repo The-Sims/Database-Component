@@ -6,13 +6,13 @@ public class IncidentJson {
     int id;
     String category;
     String place;
-    ArrayList<String> reinforcementInfo;
-    ArrayList<String> incidentDescription;
+    ArrayList<MessageJson> reinforcementInfo;
+    ArrayList<MessageJson> incidentDescription;
     boolean live;
     String create_date;
     String modify_date;
 
-    public IncidentJson(int id, String category, String place, ArrayList<String> reinforcementInfo, ArrayList<String> incidentDescription, boolean live, String create_date, String modify_date) {
+    public IncidentJson(int id, String category, String place, ArrayList<MessageJson> reinforcementInfo, ArrayList<MessageJson> incidentDescription, boolean live, String create_date, String modify_date) {
         this.id = id;
         this.category = category;
         this.place = place;
@@ -35,7 +35,7 @@ public class IncidentJson {
         return place;
     }
 
-    public ArrayList<String> getReinforcementInfo() {
+    public ArrayList<MessageJson> getReinforcementInfo() {
         return reinforcementInfo;
     }
 

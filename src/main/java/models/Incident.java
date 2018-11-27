@@ -1,5 +1,6 @@
 package models;
 
+import SimsRESTServer.response.MessageJson;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -45,15 +46,23 @@ public class Incident {
     @Fetch(value = FetchMode.SELECT)    // don't remove this line
     private List<ReinforceInfo> reinforceInfo;
 
-    public Incident(ArrayList<IncidentDescription> descriptions, Date createDate, Date modifyDate, Origin origin, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {
+
+
+
+
+    public Incident(ArrayList<IncidentDescription> descriptions, Origin origin, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {
         this.descriptions = descriptions;
-        this.createDate = createDate;
-        this.modifyDate = modifyDate;
+        for (IncidentDescription description : this.descriptions) {
+            description.setIncident(this);
+        }
         this.origin = origin;
         this.category = category;
         this.place = place;
         this.live = live;
         this.reinforceInfo = reinforceInfo;
+        for (ReinforceInfo info : this.reinforceInfo) {
+            info.setIncident(this);
+        }
     }
 
     public Incident() {
@@ -113,5 +122,21 @@ public class Incident {
             reinforceInfosStrings.add(r.getReinforceInfo());
         }
         return reinforceInfosStrings;
+    }
+
+    public ArrayList<MessageJson> getDescriptionJson(){
+        ArrayList<MessageJson> descriptionJson = new ArrayList<>();
+        for(IncidentDescription i: descriptions){
+            descriptionJson.add(new MessageJson(i.getDescription(), i.getDate().toString()));
+        }
+        return descriptionJson;
+    }
+
+    public ArrayList<MessageJson> getReinformentJson(){
+        ArrayList<MessageJson> reinforcementJson = new ArrayList<>();
+        for(ReinforceInfo r: reinforceInfo){
+            reinforcementJson.add(new MessageJson(r.getReinforceInfo(), r.getDate().toString()));
+        }
+        return reinforcementJson;
     }
 }
