@@ -8,9 +8,7 @@ import SimsRESTServer.response.Status;
 import com.google.gson.Gson;
 import logging.Logger;
 import models.*;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class IncidentHandler implements IIncidentHandler{
