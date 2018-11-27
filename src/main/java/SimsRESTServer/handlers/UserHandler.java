@@ -75,6 +75,7 @@ public class UserHandler implements IUserHandler {
     @Override
     public Reply getAll() {
         try {
+            addUsers();
             List<User> loggedInUsers = repository.findAll();
             List<LoggedInUserJson> loggedInUserResponse = new ArrayList<>();
 
