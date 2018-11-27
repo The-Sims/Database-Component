@@ -22,7 +22,7 @@ public class PhasedplanHandler implements IPhasedplanHandler {
     @Override
     public Reply getPhasedplans() {
         try {
-            addPhasedPlan();
+            addPhasedPlans();
             List<Phasedplan> phasedplans = repository.findAll();
             List<PhasedplanJson> phasedplanResponse = new ArrayList<>();
 
@@ -92,7 +92,7 @@ public class PhasedplanHandler implements IPhasedplanHandler {
         return new Reply(Status.ERROR, gson.toJson(errorJson));
     }
 
-    private void addPhasedPlan() {
+    private void addPhasedPlans() {
         Phasedplan phasedplan1 = new Phasedplan("Aardbeving");
         phasedplan1.addPhasedplanTask(new Task("Controleer op overlevenden", "Controleer de omgeving op overlevers"));
         phasedplan1.addPhasedplanTask(new Task("Berging", "Start bergingswerkzaamheden"));

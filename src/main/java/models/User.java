@@ -9,9 +9,7 @@ import java.util.Date;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "userId", nullable = false)
-    @GeneratedValue(generator = "incrementor")
-    @GenericGenerator(name = "incrementor", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
 
     @Column(name = "emailaddress", nullable = false)
