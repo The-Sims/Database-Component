@@ -7,9 +7,10 @@ import SimsRESTServer.response.Reply;
 import SimsRESTServer.response.Status;
 import com.google.gson.Gson;
 import logging.Logger;
-import models.Incident;
+import models.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IncidentHandler implements IIncidentHandler{
@@ -24,10 +25,11 @@ public class IncidentHandler implements IIncidentHandler{
     @Override
     public Reply getIncidents(){
         try {
+            addIncident();
             List<Incident> incidents = repo.findAll();
             List<IncidentJson> incidentResponse = new ArrayList<IncidentJson>();
             for (Incident incident : incidents) {
-                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinforceInfoStrings(),incident.getDescriptionStrings(), incident.isLive(), incident.getCreateDate().toString(), incident.getModifyDate().toString()));
+                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(), incident.getCreateDate().toString(), incident.getModifyDate().toString()));
             }
             String json = gson.toJson(incidentResponse);
             return new Reply(Status.OK, json);
@@ -42,7 +44,7 @@ public class IncidentHandler implements IIncidentHandler{
     public Reply getIncident(int id){
         Incident incident = repo.findOne(id);
         if (incident != null) {
-            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategoryString(),incident.getPlace(),incident.getReinforceInfoStrings(),incident.getDescriptionStrings(), incident.isLive(),incident.getCreateDate().toString(), incident.getModifyDate().toString());
+            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategoryString(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate().toString(), incident.getModifyDate().toString());
             String json = gson.toJson(incidentJson);
             return new Reply(Status.OK, json);
         }
@@ -58,6 +60,21 @@ public class IncidentHandler implements IIncidentHandler{
         }
         ErrorJson errorJson = new ErrorJson("Something went wrong");
         return new Reply(Status.ERROR, gson.toJson(errorJson));
+    }
+
+    private void addIncident(){
+        ArrayList<IncidentDescription> incidentDescriptions = new ArrayList<>();
+        incidentDescriptions.add(new IncidentDescription("Gas tank is geexplodeerd"));
+        incidentDescriptions.add(new IncidentDescription("Stoute student"));
+
+        ArrayList<ReinforceInfo> reinforceInfos = new ArrayList<>();
+        reinforceInfos.add(new ReinforceInfo("Run like hell"));
+        reinforceInfos.add(new ReinforceInfo("Het was Bas"));
+
+
+        Incident incident = new Incident(incidentDescriptions, Origin.TWITTER, new Category("Explosie"), "Rachelsmolen 1, Eindhoven", false, reinforceInfos);
+
+        repo.save(incident);
     }
 
 }
