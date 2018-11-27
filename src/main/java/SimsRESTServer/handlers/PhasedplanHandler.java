@@ -19,10 +19,10 @@ public class PhasedplanHandler implements IPhasedplanHandler {
         this.gson = new Gson();
     }
 
-    //TODO: Add checks + error handling
     @Override
     public Reply getPhasedplans() {
         try {
+            addPhasedPlan();
             List<Phasedplan> phasedplans = repository.findAll();
             List<PhasedplanJson> phasedplanResponse = new ArrayList<>();
 
@@ -81,7 +81,6 @@ public class PhasedplanHandler implements IPhasedplanHandler {
         }
     }
 
-    //TODO: How to do this?
     @Override
     public Reply saveTask(Phasedplan phasedplan) {
         Phasedplan saved = repository.save(phasedplan);
@@ -91,5 +90,18 @@ public class PhasedplanHandler implements IPhasedplanHandler {
         }
         ErrorJson errorJson = new ErrorJson("Something went wrong");
         return new Reply(Status.ERROR, gson.toJson(errorJson));
+    }
+
+    private void addPhasedPlan() {
+        Phasedplan phasedplan1 = new Phasedplan("Aardbeving");
+        phasedplan1.addPhasedplanTask(new Task("Controleer op overlevenden", "Controleer de omgeving op overlevers"));
+        phasedplan1.addPhasedplanTask(new Task("Berging", "Start bergingswerkzaamheden"));
+
+        Phasedplan phasedplan2 = new Phasedplan("Bosbrand");
+        phasedplan2.addPhasedplanTask(new Task("Blussen", "Start met blussen"));
+        phasedplan2.addPhasedplanTask(new Task("Eigen veiligheid", "Controleer en zorg voor eigen veiligheid"));
+
+        repository.save(phasedplan1);
+        repository.save(phasedplan2);
     }
 }

@@ -71,6 +71,13 @@ public class User {
         this.password = password;
     }
 
+    public User(String emailaddress, String password, String tokenString, Date tokenCreationDate) {
+        this.emailaddress = emailaddress;
+        this.password = password;
+        this.tokenString = tokenString;
+        this.tokenCreationDate = tokenCreationDate;
+    }
+
     public User(int userId, String emailaddress, String password, String tokenString, Date tokenCreationDate) {
         this.userId = userId;
         this.emailaddress = emailaddress;

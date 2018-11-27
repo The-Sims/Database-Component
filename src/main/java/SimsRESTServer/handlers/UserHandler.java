@@ -42,6 +42,13 @@ public class UserHandler implements IUserHandler {
 
     @Override
     public Reply login(String emailaddress, String password) {
+        try {
+            addUsers();
+        } catch (Exception e) {
+            ErrorJson errorJson = new ErrorJson("Something went wrong");
+            return new Reply(Status.ERROR, gson.toJson(errorJson));
+        }
+
         User user = new User(emailaddress, passwordHasher.getPasswordHash(password));
         List<User> userResponse = repository.findAll();
 
@@ -82,5 +89,16 @@ public class UserHandler implements IUserHandler {
             ErrorJson errorJson = new ErrorJson("Something went wrong");
             return new Reply(Status.ERROR, gson.toJson(errorJson));
         }
+    }
+
+    private void addUsers() {
+        Token token1 = Token.generate();
+        User user1 = new User("henk@test.com", passwordHasher.getPasswordHash("Welkom01"), token1.getTokenText(), token1.getCreationDate());
+
+        Token token2 = Token.generate();
+        User user2 = new User("floortje@test.com", passwordHasher.getPasswordHash("lol"), token2.getTokenText(), token2.getCreationDate());
+
+        repository.save(user1);
+        repository.save(user2);
     }
 }
