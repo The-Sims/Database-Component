@@ -3,7 +3,7 @@ SIMS Database component with REST server
 
 
 ## REST server url
-http://localhost:8095/SIMS
+http://localhost:8094/SIMS
 
 
 

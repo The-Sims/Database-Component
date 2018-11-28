@@ -17,9 +17,6 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Phasedplan phasedplan;
-
     // Getters and setters
     public int getTaskId() {
         return taskId;
