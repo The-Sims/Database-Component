@@ -62,36 +62,6 @@ public class PhasedplanHandler implements IPhasedplanHandler {
         return new Reply(Status.ERROR, gson.toJson(errorJson));
     }
 
-    @Override
-    public Reply getTasks(int phasedplanId) {
-        try {
-            Phasedplan p = repository.findOne(phasedplanId);
-            List<TaskJson> tasksReponse = new ArrayList<>();
-
-            for (Task t : p.getTasks()) {
-                tasksReponse.add(new TaskJson(t.getTaskId(), t.getName(), t.getDescription()));
-            }
-
-            String json = gson.toJson(tasksReponse);
-            return new Reply(Status.OK, json);
-        } catch (Exception e) {
-            Logger.getInstance().log(e);
-            ErrorJson errorJson = new ErrorJson("Something went wrong");
-            return new Reply(Status.ERROR, gson.toJson(errorJson));
-        }
-    }
-
-    @Override
-    public Reply saveTask(Phasedplan phasedplan) {
-        Phasedplan saved = repository.save(phasedplan);
-
-        if (phasedplan.getPhasedplanId() == phasedplan.getPhasedplanId()) {
-            return new Reply(Status.OK, gson.toJson(saved));
-        }
-        ErrorJson errorJson = new ErrorJson("Something went wrong");
-        return new Reply(Status.ERROR, gson.toJson(errorJson));
-    }
-
     private void addPhasedPlans() {
         Phasedplan phasedplan1 = new Phasedplan("Aardbeving");
         phasedplan1.addPhasedplanTask(new Task("Controleer op overlevenden", "Controleer de omgeving op overlevers"));
