@@ -9,9 +9,7 @@ import java.util.Date;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "userId", nullable = false)
-    @GeneratedValue(generator = "incrementor")
-    @GenericGenerator(name = "incrementor", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
 
     @Column(name = "emailaddress", nullable = false)
@@ -69,6 +67,13 @@ public class User {
     public User(String emailaddress, String password) {
         this.emailaddress = emailaddress;
         this.password = password;
+    }
+
+    public User(String emailaddress, String password, String tokenString, Date tokenCreationDate) {
+        this.emailaddress = emailaddress;
+        this.password = password;
+        this.tokenString = tokenString;
+        this.tokenCreationDate = tokenCreationDate;
     }
 
     public User(int userId, String emailaddress, String password, String tokenString, Date tokenCreationDate) {

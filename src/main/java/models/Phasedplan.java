@@ -13,9 +13,7 @@ import java.util.List;
 @Table(name = "phasedplan")
 public class Phasedplan {
     @Id
-    @Column(name = "phasedplanId", nullable = false)
-    @GeneratedValue(generator = "incrementor")
-    @GenericGenerator(name = "incrementor", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int phasedPlanId;
 
     @Column(name = "name", nullable = false)
@@ -23,7 +21,7 @@ public class Phasedplan {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "phasedplan", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SELECT)    // don't remove this line
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
 
     // Getters and setters
     public int getPhasedplanId() {
@@ -65,11 +63,13 @@ public class Phasedplan {
 
     public Phasedplan(String name) {
         this.name = name;
+        this.tasks = new ArrayList<>();
     }
 
     public Phasedplan(int phasedplanId, String name) {
         this.phasedPlanId = phasedplanId;
         this.name = name;
+        this.tasks = new ArrayList<>();
     }
 
     // Methods
