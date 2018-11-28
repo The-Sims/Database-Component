@@ -50,6 +50,7 @@
         <mapping class="models.Incident"/>
         <mapping class="models.IncidentDescription"/>
         <mapping class="models.ReinforceInfo"/>
+        <mapping class="models.Tip"/>
 
     </session-factory>
 </hibernate-configuration>

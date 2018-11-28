@@ -8,6 +8,4 @@ public interface IPhasedplanHandler {
     Reply getPhasedplans();
     Reply getPhasedplan(int phasedplanId);
     Reply savePhasedplan(Phasedplan phasedplan);
-    Reply getTasks(int phasedplanId);
-    Reply saveTask(Phasedplan phasedplan);
 }

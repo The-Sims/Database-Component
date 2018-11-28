@@ -4,14 +4,12 @@ import SimsRESTServer.handlers.IUserHandler;
 import SimsRESTServer.response.Reply;
 import models.PasswordHasher;
 import models.User;
+import utils.GsonUtils;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@Path("/SIMS")
+@Path("/user")
 public class UserService {
     private static IUserHandler handler;
     private PasswordHasher passwordHasher = new PasswordHasher();
@@ -20,17 +18,22 @@ public class UserService {
         UserService.handler = handler;
     }
 
-    //TODO: Implement class
     @POST
     @Path("/register")
-    public Response register(User registerUser) {
+    @Consumes("application/json")
+    public Response register(String data) {
+        User registerUser = GsonUtils.fromJson(data, User.class);
+
         Reply reply = handler.register(registerUser.getEmailaddress(), registerUser.getPassword());
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
 
     @POST
     @Path("/login")
-    public Response login(User user) {
+    @Consumes("application/json")
+    public Response login(String data) {
+        User user = GsonUtils.fromJson(data, User.class);
+
         Reply reply = handler.login(user.getEmailaddress(), user.getPassword());
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
@@ -43,7 +46,7 @@ public class UserService {
     } */
 
     @GET
-    @Path("/user/all")
+    @Path("/all")
     public Response getAllRegisteredUsers() {
         Reply reply = handler.getAll();
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();

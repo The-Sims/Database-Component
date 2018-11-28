@@ -19,8 +19,8 @@ public class Phasedplan {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "phasedplan", cascade = CascadeType.ALL)
-    @Fetch(value = FetchMode.SELECT)    // don't remove this line
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "phasedplan_id")
     private List<Task> tasks;
 
     // Getters and setters
