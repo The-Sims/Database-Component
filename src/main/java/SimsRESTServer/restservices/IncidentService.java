@@ -18,6 +18,7 @@ public class IncidentService {
     }
 
     private Gson gson = new Gson();
+    
 
     @GET
     @Path("/all")
