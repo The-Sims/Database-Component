@@ -72,6 +72,23 @@ public class IncidentHandler implements IIncidentHandler{
         }
     }
 
+    @Override
+    public Reply concludeIncident(int indicentId) {
+        Incident incident = repo.findOne(indicentId);
+        if (incident != null) {
+            incident.setLive(false);
+            
+            Incident saved = repo.save(incident);
+            if (saved.getId() == incident.getId()) {
+                return new Reply(Status.OK, gson.toJson(saved));
+            }
+            ErrorJson errorJson = new ErrorJson("Something went wrong");
+            return new Reply(Status.ERROR, gson.toJson(errorJson));
+        }
+        ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
+        return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
+    }
+
     private void addIncident(){
         ArrayList<IncidentDescription> incidentDescriptions = new ArrayList<>();
         incidentDescriptions.add(new IncidentDescription("Gas tank is geexplodeerd"));
