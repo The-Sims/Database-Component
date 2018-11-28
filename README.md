@@ -3,13 +3,13 @@ SIMS Database component with REST server
 
 
 ## REST server url
-http://localhost:8094/SIMS
+http://localhost:8094/
 
 
 
 ### REST server urls
-/login <br>
-/register <br>
+/user/login <br>
+/user/register <br>
 /user/all <br>
 
 /phasedplan/all <br>

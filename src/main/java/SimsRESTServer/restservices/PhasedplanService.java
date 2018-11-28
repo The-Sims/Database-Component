@@ -8,7 +8,7 @@ import utils.GsonUtils;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@Path("/SIMS/phasedplan")
+@Path("/phasedplan")
 public class PhasedplanService {
     private static IPhasedplanHandler handler;
 

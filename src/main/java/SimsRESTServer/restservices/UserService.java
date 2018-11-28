@@ -9,7 +9,7 @@ import utils.GsonUtils;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@Path("/SIMS")
+@Path("/user")
 public class UserService {
     private static IUserHandler handler;
     private PasswordHasher passwordHasher = new PasswordHasher();
@@ -46,7 +46,7 @@ public class UserService {
     } */
 
     @GET
-    @Path("/user/all")
+    @Path("/all")
     public Response getAllRegisteredUsers() {
         Reply reply = handler.getAll();
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
