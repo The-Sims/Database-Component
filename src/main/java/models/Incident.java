@@ -141,4 +141,8 @@ public class Incident {
         }
         return reinforcementJson;
     }
+
+    public void setLive(boolean live) {
+        this.live = live;
+    }
 }

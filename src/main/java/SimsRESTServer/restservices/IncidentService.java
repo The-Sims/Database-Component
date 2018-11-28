@@ -34,6 +34,13 @@ public class IncidentService {
     }
 
     @POST
+    @Path("/conclude/{id}")
+    public Response concludeIncident(@PathParam("id") int incidentId) {
+        Reply reply = handler.concludeIncident(incidentId);
+        return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
+    }
+
+    @POST
     @Path("/save")
     @Consumes("application/json")
     public Response saveIncident(String data) {
