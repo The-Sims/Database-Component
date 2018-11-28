@@ -21,6 +21,7 @@ public class Phasedplan {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "phasedplan_id")
+    @Fetch(FetchMode.SELECT)
     private List<Task> tasks;
 
     // Getters and setters

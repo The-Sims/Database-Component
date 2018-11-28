@@ -22,7 +22,7 @@ public class PhasedplanHandler implements IPhasedplanHandler {
     @Override
     public Reply getPhasedplans() {
         try {
-            addPhasedPlans();
+            //addPhasedPlans();
             List<Phasedplan> phasedplans = repository.findAll();
             List<PhasedplanJson> phasedplanResponse = new ArrayList<>();
 
