@@ -41,4 +41,11 @@ public class IncidentService {
         Reply reply = handler.saveIncident(incident);
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
+
+    @POST
+    @Path("/delete/{id}")
+    public Response deleteIncident(@PathParam("id") int incidentId) {
+        Reply reply = handler.deleteIncident(incidentId);
+        return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
+    }
 }

@@ -46,7 +46,9 @@ public class Incident {
     @Fetch(value = FetchMode.SELECT)    // don't remove this line
     private List<ReinforceInfo> reinforceInfo;
 
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "incident", cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)    // don't remove this line
+    private List<Tip> tips;
 
 
 

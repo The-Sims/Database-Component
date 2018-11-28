@@ -62,6 +62,18 @@ public class IncidentHandler implements IIncidentHandler{
         return new Reply(Status.ERROR, gson.toJson(errorJson));
     }
 
+    @Override
+    public Reply deleteIncident(int indicentId) {
+        try {
+            repo.delete(indicentId);
+            ErrorJson messageJson = new ErrorJson("Deleted");
+            return new Reply(Status.OK, gson.toJson(messageJson));
+        } catch (Exception e){
+            ErrorJson errorJson = new ErrorJson("Something went wrong");
+            return new Reply(Status.ERROR, gson.toJson(errorJson));
+        }
+    }
+
     private void addIncident(){
         ArrayList<IncidentDescription> incidentDescriptions = new ArrayList<>();
         incidentDescriptions.add(new IncidentDescription("Gas tank is geexplodeerd"));

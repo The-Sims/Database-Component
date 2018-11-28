@@ -10,4 +10,6 @@ public interface IIncidentHandler {
     Reply getIncident(int id);
 
     Reply saveIncident(Incident incident);
+
+    Reply deleteIncident(int indicentId);
 }
