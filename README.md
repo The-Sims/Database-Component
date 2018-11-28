@@ -16,9 +16,3 @@ http://localhost:8094/SIMS
 /phasedplan/{id} <br>
 /phasedplan/add <br>
 /phasedplan/edit <br>
-
-/phasedplan/{id}/task/all <br>
-/phasedplan/task/add <br>
-/phasedplan/task/edit <br>
-
-
