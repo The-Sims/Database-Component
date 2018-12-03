@@ -77,7 +77,7 @@ public class IncidentHandler implements IIncidentHandler{
         Incident incident = repo.findOne(indicentId);
         if (incident != null) {
             incident.setLive(false);
-            
+
             Incident saved = repo.save(incident);
             if (saved.getId() == incident.getId()) {
                 return new Reply(Status.OK, gson.toJson(saved));

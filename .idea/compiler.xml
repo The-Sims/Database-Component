@@ -9,5 +9,8 @@
         <module name="SIMSdatabaseV2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SIMSdatabaseV2" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
