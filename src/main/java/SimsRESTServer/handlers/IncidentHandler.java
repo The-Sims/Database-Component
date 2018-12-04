@@ -1,6 +1,7 @@
 package SimsRESTServer.handlers;
 
 import SimsDal.repository.IncidentRepository;
+import SimsDal.repository.TipRepository;
 import SimsRESTServer.response.ErrorJson;
 import SimsRESTServer.response.IncidentJson;
 import SimsRESTServer.response.Reply;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class IncidentHandler implements IIncidentHandler{
     private IncidentRepository repo;
+    private TipRepository tipRepo;
     private Gson gson;
 
     public IncidentHandler(IncidentRepository repo){
@@ -42,7 +44,7 @@ public class IncidentHandler implements IIncidentHandler{
     public Reply getIncident(int id){
         Incident incident = repo.findOne(id);
         if (incident != null) {
-            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategoryString(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate().toString(), incident.getModifyDate().toString());
+            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategoryString(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate().toString(), incident.getModifyDate().toString());//TODO GetTIPs
             String json = gson.toJson(incidentJson);
             return new Reply(Status.OK, json);
         }
@@ -80,6 +82,40 @@ public class IncidentHandler implements IIncidentHandler{
 
             Incident saved = repo.save(incident);
             if (saved.getId() == incident.getId()) {
+                return new Reply(Status.OK, gson.toJson(saved));
+            }
+            ErrorJson errorJson = new ErrorJson("Something went wrong");
+            return new Reply(Status.ERROR, gson.toJson(errorJson));
+        }
+        ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
+        return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
+    }
+
+    @Override
+    public Reply confirmIncident(int indicentId) {
+        Incident incident = repo.findOne(indicentId);
+        if (incident != null) {
+            incident.setConfirmed(true);
+
+            Incident saved = repo.save(incident);
+            if (saved.getId() == incident.getId()) {
+                return new Reply(Status.OK, gson.toJson(saved));
+            }
+            ErrorJson errorJson = new ErrorJson("Something went wrong");
+            return new Reply(Status.ERROR, gson.toJson(errorJson));
+        }
+        ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
+        return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
+    }
+
+    @Override
+    public Reply confirmTipIncident(int tipId) {
+        Tip tip = tipRepo.findOne(tipId);
+        if (tip != null) {
+            tip.setConfirmed(true);
+
+            Tip saved = tipRepo.save(tip);
+            if (saved.getId() == tip.getId()) {
                 return new Reply(Status.OK, gson.toJson(saved));
             }
             ErrorJson errorJson = new ErrorJson("Something went wrong");

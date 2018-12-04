@@ -42,6 +42,8 @@ public class Incident {
 
     private boolean live;
 
+    private boolean confirmed;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "incident", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SELECT)    // don't remove this line
     private List<ReinforceInfo> reinforceInfo;
@@ -112,6 +114,14 @@ public class Incident {
 
     public boolean isLive() {
         return live;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public List<ReinforceInfo> getReinforceInfo(){

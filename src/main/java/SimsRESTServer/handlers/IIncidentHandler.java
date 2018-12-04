@@ -14,4 +14,9 @@ public interface IIncidentHandler {
     Reply deleteIncident(int indicentId);
 
     Reply concludeIncident(int indicentId);
+
+    Reply confirmIncident(int indicentId);
+
+    Reply confirmTipIncident(int tipId);
+
 }

@@ -55,4 +55,18 @@ public class IncidentService {
         Reply reply = handler.deleteIncident(incidentId);
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
+
+    @POST
+    @Path("/confirm/{id}")
+    public Response confirmIncident(@PathParam("id") int incidentId) {
+        Reply reply = handler.confirmIncident(incidentId);
+        return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
+    }
+
+    @POST
+    @Path("/confirmTip/{id}")
+    public Response confirmTipIncident(@PathParam("id") int tipId) {
+        Reply reply = handler.confirmTipIncident(tipId);
+        return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
+    }
 }
