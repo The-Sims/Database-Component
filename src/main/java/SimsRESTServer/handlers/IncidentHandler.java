@@ -44,7 +44,6 @@ public class IncidentHandler implements IIncidentHandler{
     public Reply getIncident(int id){
         Incident incident = repo.findOne(id);
         if (incident != null) {
-            //TODO GetTIPs
             IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategory(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed());
             String json = gson.toJson(incidentJson);
             return new Reply(Status.OK, json);
@@ -52,8 +51,6 @@ public class IncidentHandler implements IIncidentHandler{
         ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
         return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
     }
-
-    //TODO Add get incident with correct incident thing
 
     @Override
     public Reply saveIncident(Incident incident) {
