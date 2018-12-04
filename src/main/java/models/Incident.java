@@ -124,6 +124,10 @@ public class Incident {
         this.confirmed = confirmed;
     }
 
+    public List<Tip> getTips() {
+        return tips;
+    }
+
     public List<ReinforceInfo> getReinforceInfo(){
         return reinforceInfo;
     }
@@ -139,7 +143,7 @@ public class Incident {
     public ArrayList<MessageJson> getDescriptionJson(){
         ArrayList<MessageJson> descriptionJson = new ArrayList<>();
         for(IncidentDescription i: descriptions){
-            descriptionJson.add(new MessageJson(i.getDescription(), i.getDate().toString()));
+            descriptionJson.add(new MessageJson(i.getId(),i.getDescription(), i.getDate()));
         }
         return descriptionJson;
     }
@@ -147,7 +151,7 @@ public class Incident {
     public ArrayList<MessageJson> getReinformentJson(){
         ArrayList<MessageJson> reinforcementJson = new ArrayList<>();
         for(ReinforceInfo r: reinforceInfo){
-            reinforcementJson.add(new MessageJson(r.getReinforceInfo(), r.getDate().toString()));
+            reinforcementJson.add(new MessageJson(r.getId(),r.getReinforceInfo(), r.getDate()));
         }
         return reinforcementJson;
     }

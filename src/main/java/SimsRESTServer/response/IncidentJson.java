@@ -1,34 +1,45 @@
 package SimsRESTServer.response;
 
+import models.Category;
+import models.Origin;
+import models.Tip;
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class IncidentJson {
     int id;
-    String category;
-    String place;
-    ArrayList<MessageJson> reinforcementInfo;
     ArrayList<MessageJson> incidentDescription;
+    Date create_date;
+    Date modify_date;
+    Origin origin;
+    CategoryJson category;
+    String place;
     boolean live;
-    String create_date;
-    String modify_date;
+    boolean confirmed;
+    ArrayList<MessageJson> reinforcementInfo;
+    ArrayList<TipJson> tips;
 
-    public IncidentJson(int id, String category, String place, ArrayList<MessageJson> reinforcementInfo, ArrayList<MessageJson> incidentDescription, boolean live, String create_date, String modify_date) {
+
+    public IncidentJson(int id, Category category, String place, ArrayList<MessageJson> reinforcementInfo, ArrayList<MessageJson> incidentDescription, boolean live, Date create_date, Date modify_date, List<Tip> tips, boolean confirmed) {
         this.id = id;
-        this.category = category;
+        this.category = new CategoryJson(category);
         this.place = place;
         this.reinforcementInfo = reinforcementInfo;
         this.incidentDescription = incidentDescription;
         this.live = live;
         this.create_date = create_date;
         this.modify_date = modify_date;
+        this.tips = new ArrayList<>();
+        for (Tip t: tips){
+            this.tips.add(new TipJson(t));
+        }
+        this.confirmed = confirmed;
     }
 
     public int getId() {
         return id;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getPlace(){
@@ -43,11 +54,4 @@ public class IncidentJson {
         return live;
     }
 
-    public String getCreate_date() {
-        return create_date;
-    }
-
-    public String getModify_date() {
-        return modify_date;
-    }
 }

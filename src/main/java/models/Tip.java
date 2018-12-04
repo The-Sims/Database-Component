@@ -38,6 +38,26 @@ public class Tip {
         return id;
     }
 
+    public Origin getOrigin() {
+        return origin;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

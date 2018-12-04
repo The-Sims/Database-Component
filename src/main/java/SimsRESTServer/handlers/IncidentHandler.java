@@ -29,7 +29,7 @@ public class IncidentHandler implements IIncidentHandler{
             List<Incident> incidents = repo.findAll();
             List<IncidentJson> incidentResponse = new ArrayList<IncidentJson>();
             for (Incident incident : incidents) {
-                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategoryString(), incident.getPlace(), incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(), incident.getCreateDate().toString(), incident.getModifyDate().toString()));
+                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategory(), incident.getPlace(), incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(), incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed()));
             }
             String json = gson.toJson(incidentResponse);
             return new Reply(Status.OK, json);
@@ -44,13 +44,16 @@ public class IncidentHandler implements IIncidentHandler{
     public Reply getIncident(int id){
         Incident incident = repo.findOne(id);
         if (incident != null) {
-            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategoryString(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate().toString(), incident.getModifyDate().toString());//TODO GetTIPs
+            //TODO GetTIPs
+            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategory(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed());
             String json = gson.toJson(incidentJson);
             return new Reply(Status.OK, json);
         }
         ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
         return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
     }
+
+    //TODO Add get incident with correct incident thing
 
     @Override
     public Reply saveIncident(Incident incident) {
