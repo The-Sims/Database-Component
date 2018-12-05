@@ -32,9 +32,6 @@ public class Incident {
     @Column(name = "modify_date")
     private Date modifyDate;
 
-    @Enumerated(EnumType.STRING)
-    private Origin origin;
-
     @ManyToOne(cascade = { CascadeType.ALL })
     private Category category;
 
@@ -54,12 +51,11 @@ public class Incident {
 
 
 
-    public Incident(ArrayList<IncidentDescription> descriptions, Origin origin, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {
+    public Incident(ArrayList<IncidentDescription> descriptions, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {
         this.descriptions = descriptions;
         for (IncidentDescription description : this.descriptions) {
             description.setIncident(this);
         }
-        this.origin = origin;
         this.category = category;
         this.place = place;
         this.live = live;
@@ -96,16 +92,8 @@ public class Incident {
         return modifyDate;
     }
 
-    public Origin getOrigin() {
-        return origin;
-    }
-
     public Category getCategory() {
         return category;
-    }
-
-    public String getCategoryString(){
-        return category.getCategory();
     }
 
     public String getPlace() {

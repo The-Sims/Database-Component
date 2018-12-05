@@ -13,7 +13,6 @@ public class IncidentJson {
     ArrayList<MessageJson> incidentDescription;
     Date create_date;
     Date modify_date;
-    Origin origin;
     CategoryJson category;
     String place;
     boolean live;

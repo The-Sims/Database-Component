@@ -29,7 +29,7 @@ public class IncidentHandler implements IIncidentHandler{
             List<Incident> incidents = repo.findAll();
             List<IncidentJson> incidentResponse = new ArrayList<IncidentJson>();
             for (Incident incident : incidents) {
-                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategory(), incident.getPlace(), incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(), incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed(), incident.getOrigin()));
+                incidentResponse.add(new IncidentJson(incident.getId(), incident.getCategory(), incident.getPlace(), incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(), incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed()));
             }
             String json = gson.toJson(incidentResponse);
             return new Reply(Status.OK, json);
@@ -44,7 +44,7 @@ public class IncidentHandler implements IIncidentHandler{
     public Reply getIncident(int id){
         Incident incident = repo.findOne(id);
         if (incident != null) {
-            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategory(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed(), incident.getOrigin());
+            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategory(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed());
             String json = gson.toJson(incidentJson);
             return new Reply(Status.OK, json);
         }
@@ -135,7 +135,7 @@ public class IncidentHandler implements IIncidentHandler{
         reinforceInfos.add(new ReinforceInfo("Het was Bas"));
 
 
-        Incident incident = new Incident(incidentDescriptions, Origin.TWITTER, new Category("Explosie"), "Rachelsmolen 1, Eindhoven", false, reinforceInfos);
+        Incident incident = new Incident(incidentDescriptions, new Category("Explosie"), "Rachelsmolen 1, Eindhoven", false, reinforceInfos);
 
         repo.save(incident);
     }
