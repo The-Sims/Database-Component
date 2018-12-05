@@ -1,5 +1,9 @@
 package models;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -73,9 +77,35 @@ public class Phasedplan {
         this.tasks = new ArrayList<>();
     }
 
+    public Phasedplan(String name, List<Task> tasks) {
+        this.name = name;
+        this.tasks.clear();
+        this.tasks.addAll(tasks);
+    }
+    public Phasedplan(int phasedPlanId, String name, List<Task> tasks) {
+        this.phasedPlanId = phasedPlanId;
+        this.name = name;
+        this.tasks.clear();
+        this.tasks.addAll(tasks);
+    }
+
     // Methods
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public static Phasedplan fromJson(String data) {
+        Gson gson  = new Gson();
+        JsonObject jsonObject = gson.fromJson(data, JsonObject.class);
+        Phasedplan phasedplan = new Phasedplan(jsonObject.get("_name").getAsString());
+        JsonArray jsonTasks = jsonObject.getAsJsonArray("_tasks").getAsJsonArray();
+
+        for (JsonElement jsonTask : jsonTasks) {
+            JsonObject jsonObject1 = jsonTask.getAsJsonObject();
+            phasedplan.addPhasedplanTask(new Task(jsonObject1.get("_name").getAsString(), jsonObject1.get("_description").getAsString()));
+        }
+
+        return phasedplan;
     }
 }
