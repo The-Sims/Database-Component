@@ -51,6 +51,24 @@ public class Incident {
 
 
 
+    public Incident(ArrayList<IncidentDescription> descriptions, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo, ArrayList<Tip> tips) {
+        this.descriptions = descriptions;
+        for (IncidentDescription description : this.descriptions) {
+            description.setIncident(this);
+        }
+        this.category = category;
+        this.place = place;
+        this.live = live;
+        this.reinforceInfo = reinforceInfo;
+        for (ReinforceInfo info : this.reinforceInfo) {
+            info.setIncident(this);
+        }
+        this.tips = tips;
+        for (Tip tip : this.tips) {
+            tip.setIncident(this);
+        }
+
+    }
     public Incident(ArrayList<IncidentDescription> descriptions, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {
         this.descriptions = descriptions;
         for (IncidentDescription description : this.descriptions) {

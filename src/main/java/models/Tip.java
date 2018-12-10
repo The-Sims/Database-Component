@@ -3,7 +3,7 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="tips")
+@Table(name = "tips")
 public class Tip {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +18,13 @@ public class Tip {
     @ManyToOne(cascade = CascadeType.ALL)
     private Incident incident;
 
+    public void setIncident(Incident incident) {
+        this.incident = incident;
+    }
+
+    public Tip() {
+    }
+
     public Tip(int tipId, Origin origin, String sender, String message, String location) {
         this.id = tipId;
         this.origin = origin;
@@ -27,14 +34,14 @@ public class Tip {
     }
 
     public Tip(Origin origin, String sender, String message, String location) {
-        this.id = -1;
         this.origin = origin;
         this.sender = sender;
         this.message = message;
         this.location = location;
+        this.confirmed = false;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 

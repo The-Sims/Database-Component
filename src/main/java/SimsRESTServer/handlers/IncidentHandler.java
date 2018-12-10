@@ -12,6 +12,8 @@ import models.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static models.Origin.TWITTER;
+
 public class IncidentHandler implements IIncidentHandler{
     private IncidentRepository repo;
     private TipRepository tipRepo;
@@ -133,9 +135,13 @@ public class IncidentHandler implements IIncidentHandler{
         ArrayList<ReinforceInfo> reinforceInfos = new ArrayList<>();
         reinforceInfos.add(new ReinforceInfo("Run like hell"));
         reinforceInfos.add(new ReinforceInfo("Het was Bas"));
+        ArrayList<Tip> tips = new ArrayList<>();
+        tips.add(new Tip(TWITTER,"@Geert","Grote vuurbal jonguh", "Eindhoven"));
+        tips.add(new Tip(TWITTER,"@Dave","Grote vuurbal jonguh", "Eindhoven"));
+        tips.add(new Tip(TWITTER,"@Kees","Grote vuurbal jonguh", "Eindhoven"));
+        Category category = new Category("Explosie");
 
-
-        Incident incident = new Incident(incidentDescriptions, new Category("Explosie"), "Rachelsmolen 1, Eindhoven", false, reinforceInfos);
+        Incident incident = new Incident(incidentDescriptions, category, "Rachelsmolen 1, Eindhoven", false, reinforceInfos,tips);
 
         repo.save(incident);
     }
