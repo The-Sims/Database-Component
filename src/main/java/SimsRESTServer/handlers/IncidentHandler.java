@@ -56,6 +56,7 @@ public class IncidentHandler implements IIncidentHandler{
 
     @Override
     public Reply saveIncident(Incident incident) {
+        incident.updateLists();
         Incident saved = repo.save(incident);
         if (saved.getId() == incident.getId()) {
             return new Reply(Status.OK, gson.toJson(saved));

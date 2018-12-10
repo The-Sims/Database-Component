@@ -34,11 +34,8 @@ public class Incident {
 
     @ManyToOne(cascade = { CascadeType.ALL })
     private Category category;
-
     private String place;
-
     private boolean live;
-
     private boolean confirmed;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "incident", cascade = CascadeType.ALL)
@@ -81,6 +78,34 @@ public class Incident {
         for (ReinforceInfo info : this.reinforceInfo) {
             info.setIncident(this);
         }
+    }
+
+    public Incident(Incident incident) {
+        if (incident.getId()!=0){
+            this.id=incident.getId();
+        }
+        this.descriptions = incident.getDescriptions();
+        if (descriptions!=null){
+            for (IncidentDescription description : this.descriptions) {
+                description.setIncident(this);
+            }
+        }
+        this.category = incident.getCategory();
+        this.place = incident.getPlace();
+        this.live = incident.isLive();
+        this.reinforceInfo = incident.getReinforceInfo();
+        if (reinforceInfo!=null){
+            for (ReinforceInfo info : this.reinforceInfo) {
+                info.setIncident(this);
+            }
+        }
+        this.tips = incident.getTips();
+        if (tips!=null){
+            for (Tip tip : this.tips) {
+                tip.setIncident(this);
+            }
+        }
+
     }
 
     public Incident() {
@@ -164,5 +189,23 @@ public class Incident {
 
     public void setLive(boolean live) {
         this.live = live;
+    }
+
+    public void updateLists(){
+        if(descriptions != null && descriptions.size()!=0){
+            for (IncidentDescription description : this.descriptions) {
+                description.setIncident(this);
+            }
+        }
+        if (reinforceInfo != null && reinforceInfo.size()!=0){
+            for (ReinforceInfo info : this.reinforceInfo) {
+                info.setIncident(this);
+            }
+        }
+        if (tips != null&& tips.size()!=0){
+            for (Tip tip : this.tips) {
+                tip.setIncident(this);
+            }
+        }
     }
 }
