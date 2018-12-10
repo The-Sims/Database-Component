@@ -2,7 +2,7 @@ package utils;
 
 import com.google.gson.Gson;
 
-public class GsonUtils {
+public abstract class GsonUtils {
     private static Gson gson = new Gson();
 
     static {
