@@ -36,6 +36,7 @@ public class IncidentJson {
         }
         this.confirmed = confirmed;
     }
+    //test
 
     public int getId() {
         return id;
