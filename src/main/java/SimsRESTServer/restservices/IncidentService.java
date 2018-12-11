@@ -33,7 +33,7 @@ public class IncidentService {
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
 
-    @POST
+    @GET
     @Path("/conclude/{id}")
     public Response concludeIncident(@PathParam("id") int incidentId) {
         Reply reply = handler.concludeIncident(incidentId);
@@ -49,24 +49,31 @@ public class IncidentService {
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
 
-    @POST
+    @GET
     @Path("/delete/{id}")
     public Response deleteIncident(@PathParam("id") int incidentId) {
         Reply reply = handler.deleteIncident(incidentId);
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
 
-    @POST
+    @GET
     @Path("/confirm/{id}")
     public Response confirmIncident(@PathParam("id") int incidentId) {
         Reply reply = handler.confirmIncident(incidentId);
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
 
-    @POST
+    @GET
     @Path("/confirmTip/{id}")
     public Response confirmTipIncident(@PathParam("id") int tipId) {
         Reply reply = handler.confirmTipIncident(tipId);
+        return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
+    }
+
+    @GET
+    @Path("/deleteTip/{id}")
+    public Response deleteTipIncident(@PathParam("id") int tipId) {
+        Reply reply = handler.deleteTipIncident(tipId);
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }
 }

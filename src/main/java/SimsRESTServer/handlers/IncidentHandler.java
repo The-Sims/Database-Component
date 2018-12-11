@@ -19,8 +19,9 @@ public class IncidentHandler implements IIncidentHandler{
     private TipRepository tipRepo;
     private Gson gson;
 
-    public IncidentHandler(IncidentRepository repo){
+    public IncidentHandler(IncidentRepository repo, TipRepository tipRepo){
         this.repo = repo;
+        this.tipRepo = tipRepo;
         this.gson = new Gson();
     }
 
@@ -59,7 +60,9 @@ public class IncidentHandler implements IIncidentHandler{
         incident.updateLists();
         Incident saved = repo.save(incident);
         if (saved.getId() == incident.getId()) {
-            return new Reply(Status.OK, gson.toJson(saved));
+            IncidentJson incidentJson = new IncidentJson(incident.getId(),incident.getCategory(),incident.getPlace(),incident.getReinformentJson(),incident.getDescriptionJson(), incident.isLive(),incident.getCreateDate(), incident.getModifyDate(), incident.getTips(), incident.isConfirmed());
+            String json = gson.toJson(incidentJson);
+            return new Reply(Status.OK, gson.toJson(json));
         }
         ErrorJson errorJson = new ErrorJson("Something went wrong");
         return new Reply(Status.ERROR, gson.toJson(errorJson));
@@ -126,6 +129,18 @@ public class IncidentHandler implements IIncidentHandler{
         }
         ErrorJson errorJson = new ErrorJson("Incident doesn't exist!");
         return new Reply(Status.NOTFOUND, gson.toJson(errorJson));
+    }
+
+    @Override
+    public Reply deleteTipIncident(int tipId) {
+        try {
+            tipRepo.delete(tipId);
+            ErrorJson messageJson = new ErrorJson("Deleted");
+            return new Reply(Status.OK, gson.toJson(messageJson));
+        } catch (Exception e){
+            ErrorJson errorJson = new ErrorJson("Something went wrong");
+            return new Reply(Status.ERROR, gson.toJson(errorJson));
+        }
     }
 
     private void addIncident(){

@@ -2,6 +2,7 @@ package SimsRESTServer;
 
 import SimsDal.repository.IncidentRepository;
 import SimsDal.repository.PhasedplanRepository;
+import SimsDal.repository.TipRepository;
 import SimsDal.repository.UserRepository;
 import SimsRESTServer.handlers.*;
 import SimsRESTServer.restservices.IncidentService;
@@ -45,7 +46,7 @@ public class RestServer {
         IUserHandler userHandler = new UserHandler(new UserRepository());
         UserService.setHandler(userHandler);
 
-        IIncidentHandler recipeHandler = new IncidentHandler(new IncidentRepository());
+        IIncidentHandler recipeHandler = new IncidentHandler(new IncidentRepository(), new TipRepository());
         IncidentService.setHandler(recipeHandler);
 
         // Tells the Jersey Servlet which REST service/class to load

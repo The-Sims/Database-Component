@@ -19,4 +19,6 @@ public interface IIncidentHandler {
 
     Reply confirmTipIncident(int tipId);
 
+    Reply deleteTipIncident(int tipId);
+
 }
