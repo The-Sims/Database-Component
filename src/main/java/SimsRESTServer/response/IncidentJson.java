@@ -1,7 +1,6 @@
 package SimsRESTServer.response;
 
 import models.Category;
-import models.Origin;
 import models.Tip;
 
 import java.util.ArrayList;
@@ -11,28 +10,37 @@ import java.util.List;
 public class IncidentJson {
     int id;
     ArrayList<MessageJson> incidentDescription;
-    Date create_date;
-    Date modify_date;
+    Date createDate;
+    Date modifyDate;
     CategoryJson category;
     String place;
     boolean live;
     boolean confirmed;
     ArrayList<MessageJson> reinforcementInfo;
     ArrayList<TipJson> tips;
+    ArrayList<String> subscribedIds = new ArrayList<>();
 
 
     public IncidentJson(int id, Category category, String place, ArrayList<MessageJson> reinforcementInfo, ArrayList<MessageJson> incidentDescription, boolean live, Date create_date, Date modify_date, List<Tip> tips, boolean confirmed) {
         this.id = id;
         this.category = new CategoryJson(category);
         this.place = place;
-        this.reinforcementInfo = reinforcementInfo;
-        this.incidentDescription = incidentDescription;
+        if (reinforcementInfo != null)
+            this.reinforcementInfo = reinforcementInfo;
+        else
+            this.reinforcementInfo = new ArrayList<>();
+        if (incidentDescription != null)
+            this.incidentDescription = incidentDescription;
+        else
+            this.incidentDescription = new ArrayList<>();
         this.live = live;
-        this.create_date = create_date;
-        this.modify_date = modify_date;
+        this.createDate = create_date;
+        this.modifyDate = modify_date;
         this.tips = new ArrayList<>();
-        for (Tip t: tips){
-            this.tips.add(new TipJson(t));
+        if (tips != null) {
+            for (Tip t : tips) {
+                this.tips.add(new TipJson(t));
+            }
         }
         this.confirmed = confirmed;
     }

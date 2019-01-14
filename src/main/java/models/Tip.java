@@ -15,7 +15,7 @@ public class Tip {
     private String location;
     private boolean confirmed;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Incident incident;
 
     public void setIncident(Incident incident) {
@@ -63,6 +63,10 @@ public class Tip {
 
     public boolean isConfirmed() {
         return confirmed;
+    }
+
+    public Incident getIncident() {
+        return incident;
     }
 
     public void setId(int id) {

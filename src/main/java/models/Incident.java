@@ -163,26 +163,22 @@ public class Incident {
         return reinforceInfo;
     }
 
-    public ArrayList<String> getReinforceInfoStrings(){
-        ArrayList<String> reinforceInfosStrings = new ArrayList<>();
-        for(ReinforceInfo r: reinforceInfo){
-            reinforceInfosStrings.add(r.getReinforceInfo());
-        }
-        return reinforceInfosStrings;
-    }
-
     public ArrayList<MessageJson> getDescriptionJson(){
         ArrayList<MessageJson> descriptionJson = new ArrayList<>();
-        for(IncidentDescription i: descriptions){
-            descriptionJson.add(new MessageJson(i.getId(),i.getDescription(), i.getDate()));
+        if (descriptions != null) {
+            for (IncidentDescription i : descriptions) {
+                descriptionJson.add(new MessageJson(i.getId(), i.getDescription(), i.getDate()));
+            }
         }
         return descriptionJson;
     }
 
     public ArrayList<MessageJson> getReinformentJson(){
         ArrayList<MessageJson> reinforcementJson = new ArrayList<>();
-        for(ReinforceInfo r: reinforceInfo){
-            reinforcementJson.add(new MessageJson(r.getId(),r.getReinforceInfo(), r.getDate()));
+        if (reinforceInfo != null) {
+            for (ReinforceInfo r : reinforceInfo) {
+                reinforcementJson.add(new MessageJson(r.getId(), r.getReinforceInfo(), r.getDate()));
+            }
         }
         return reinforcementJson;
     }
@@ -207,5 +203,9 @@ public class Incident {
                 tip.setIncident(this);
             }
         }
+    }
+
+    public void emptyModifyDate(){
+        modifyDate = null;
     }
 }
