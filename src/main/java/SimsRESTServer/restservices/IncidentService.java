@@ -1,6 +1,7 @@
 package SimsRESTServer.restservices;
 
 import SimsRESTServer.handlers.IIncidentHandler;
+import SimsRESTServer.response.IncidentJson;
 import SimsRESTServer.response.Reply;
 import com.google.gson.Gson;
 import models.Incident;
@@ -44,7 +45,7 @@ public class IncidentService {
     @Path("/save")
     @Consumes("application/json")
     public Response saveIncident(String data) {
-        Incident incident = gson.fromJson(data, Incident.class);
+        IncidentJson incident = gson.fromJson(data, IncidentJson.class);
         Reply reply = handler.saveIncident(incident);
         return Response.status(reply.getStatus().getCode()).entity(reply.getMessage()).build();
     }

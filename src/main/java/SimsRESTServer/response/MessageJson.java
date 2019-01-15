@@ -12,4 +12,16 @@ public class MessageJson {
         this.message = message;
         this.date = date;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }

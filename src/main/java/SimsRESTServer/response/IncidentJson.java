@@ -62,4 +62,27 @@ public class IncidentJson {
         return live;
     }
 
+    public ArrayList<MessageJson> getIncidentDescription() {
+        return incidentDescription;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public CategoryJson getCategory() {
+        return category;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public ArrayList<TipJson> getTips() {
+        return tips;
+    }
 }

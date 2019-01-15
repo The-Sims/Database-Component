@@ -56,7 +56,8 @@ public class IncidentHandler implements IIncidentHandler{
     }
 
     @Override
-    public Reply saveIncident(Incident incident) {
+    public Reply saveIncident(IncidentJson data) {
+        Incident incident = new Incident(data.getId(),data.getIncidentDescription(), data.getCreateDate(), data.getModifyDate(), data.getCategory(), data.getPlace(), data.isLive(), data.isConfirmed(), data.getReinforcementInfo(), data.getTips());
         incident.updateLists();
         incident.emptyModifyDate();
         Incident saved = repo.save(incident);

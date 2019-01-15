@@ -1,6 +1,8 @@
 package models;
 
+import SimsRESTServer.response.CategoryJson;
 import SimsRESTServer.response.MessageJson;
+import SimsRESTServer.response.TipJson;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -65,6 +67,33 @@ public class Incident {
             tip.setIncident(this);
         }
 
+    }
+
+    public Incident(int id, ArrayList<MessageJson> incidentDescription, Date createDate, Date modifyDate, CategoryJson category, String place, boolean live, boolean confirmed, ArrayList<MessageJson> reinforcementInfo, ArrayList<TipJson> tips) {
+        this.id = id;
+        this.descriptions = new ArrayList<>();
+        for (MessageJson d : incidentDescription) {
+            IncidentDescription description = new IncidentDescription(d.getId(), d.getMessage(), d.getDate());
+            description.setIncident(this);
+            this.descriptions.add(description);
+        }
+        this.createDate = createDate;
+        this.category = new Category(category.getId(), category.getCategory());
+        this.place = place;
+        this.live = live;
+        this.confirmed = confirmed;
+        this.reinforceInfo = new ArrayList<>();
+        for (MessageJson i : reinforcementInfo) {
+            ReinforceInfo info = new ReinforceInfo(i.getId(),i.getMessage(), i.getDate());
+            info.setIncident(this);
+            this.reinforceInfo.add(info);
+        }
+        this.tips =  new ArrayList<>();
+        for (TipJson t: tips){
+            Tip tip = new Tip(t.getId(), Origin.TWITTER, t.getSender(), t.getMessage(), t.getLocation(), t.isConfirmed());
+            tip.setIncident(this);
+            this.tips.add(tip);
+        }
     }
     public Incident(ArrayList<IncidentDescription> descriptions, Category category, String place, boolean live, ArrayList<ReinforceInfo> reinforceInfo) {
         this.descriptions = descriptions;

@@ -31,6 +31,12 @@ public class ReinforceInfo {
         this.reinforceInfo = reinforceInfo;
     }
 
+    public ReinforceInfo(int id, String reinforceInfo, Date date) {
+        this.id = id;
+        this.reinforceInfo = reinforceInfo;
+        this.date = date;
+    }
+
     public ReinforceInfo() {
     }
 

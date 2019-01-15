@@ -27,6 +27,12 @@ public class IncidentDescription {
         this.description = description;
     }
 
+    public IncidentDescription(int id, String description, Date date) {
+        this.id = id;
+        this.description = description;
+        this.date = date;
+    }
+
     public void setIncident(Incident incident) {
         this.incident = incident;
     }

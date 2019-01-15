@@ -18,4 +18,28 @@ public class TipJson {
         this.location = tip.getLocation();
         this.confirmed = tip.isConfirmed();
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
 }

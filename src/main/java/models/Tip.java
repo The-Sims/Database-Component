@@ -41,6 +41,15 @@ public class Tip {
         this.confirmed = false;
     }
 
+    public Tip(int id, Origin origin, String sender, String message, String location, boolean confirmed) {
+        this.id = id;
+        this.origin = origin;
+        this.sender = sender;
+        this.message = message;
+        this.location = location;
+        this.confirmed = confirmed;
+    }
+
     public int getId() {
         return id;
     }

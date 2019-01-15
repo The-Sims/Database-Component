@@ -1,6 +1,7 @@
 package SimsRESTServer.handlers;
 
 
+import SimsRESTServer.response.IncidentJson;
 import SimsRESTServer.response.Reply;
 import models.Incident;
 
@@ -9,7 +10,7 @@ public interface IIncidentHandler {
 
     Reply getIncident(int id);
 
-    Reply saveIncident(Incident incident);
+    Reply saveIncident(IncidentJson incident);
 
     Reply deleteIncident(int indicentId);
 
